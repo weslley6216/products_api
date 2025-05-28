@@ -63,4 +63,29 @@ describe 'Products API', type: :request do
       end
     end
   end
+
+  describe 'GET /products/:id' do
+    context 'when the product exists' do
+      let!(:product) { create(:product, name: 'Monitor', price: 500.0, sku: 'MONITOR001') }
+
+      it 'returns a 200 status code and the product data' do
+        get "/products/#{product.id}"
+
+        expect(response).to have_http_status(:ok)
+        expect(parsed_response[:id]).to eq(product.id)
+        expect(parsed_response[:name]).to eq('Monitor')
+        expect(parsed_response[:price]).to eq('500.0')
+        expect(parsed_response[:sku]).to eq('MONITOR001')
+      end
+    end
+
+    context 'when the product does not exist' do
+      it 'returns a 404 status code with a not found message' do
+        get '/products/9999'
+
+        expect(response).to have_http_status(:not_found)
+        expect(parsed_response[:message]).to eq('Product not found')
+      end
+    end
+  end
 end

@@ -12,6 +12,13 @@ class ProductsController < ApplicationController
 
     render json: @product.errors, status: :unprocessable_entity
   end
+
+  def show
+    @product = Product.find(params[:id])
+    render json: @product, status: :ok
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: 'Product not found' }, status: :not_found
+  end
   
   private
 
