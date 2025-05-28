@@ -1,4 +1,10 @@
 class ProductsController < ApplicationController
+  def index
+    @products = Product.ordered_by_name
+
+    render json: @products, status: :ok
+  end
+
   def create
     @product = Product.new(product_params)
 
