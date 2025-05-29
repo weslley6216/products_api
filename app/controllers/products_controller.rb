@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
+  before_action :set_product, only: [:show, :destroy]
+
   def index
     @products = Product.ordered_by_name
-
     render json: @products, status: :ok
   end
 
@@ -14,22 +15,21 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
     render json: @product, status: :ok
-  rescue ActiveRecord::RecordNotFound
-    render json: { message: 'Product not found' }, status: :not_found
   end
 
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy
     head :no_content
+  end
 
+  private
+
+  def set_product
+    @product = Product.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render json: { message: 'Product not found' }, status: :not_found
   end
-  
-  private
 
   def product_params
     params.require(:product).permit(:name, :price, :sku)
