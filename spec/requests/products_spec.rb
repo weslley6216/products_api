@@ -89,6 +89,48 @@ describe 'Products API', type: :request do
     end
   end
 
+  describe 'PUT /products/:id' do
+    let!(:product) { create(:product, name: 'Old Name', price: 100.0, sku: 'OLD_SKU') }
+
+    context 'with valid parameters' do
+      let(:valid_attributes) { { product: { name: 'New Name', price: 200.0, sku: 'NEW_SKU' } } }
+
+      it 'updates the product' do
+        put "/products/#{product.id}", params: valid_attributes
+
+        expect(response).to have_http_status(:ok)
+        expect(parsed_response[:id]).to eq(product.id)
+        expect(parsed_response[:name]).to eq('New Name')
+        expect(parsed_response[:price]).to eq('200.0')
+        expect(parsed_response[:sku]).to eq('NEW_SKU')
+      end
+    end
+
+    context 'with invalid parameters' do
+      let(:invalid_attributes) { { product: { name: '', price: 0, sku: '' } } }
+
+      it 'does not update the product' do
+        put "/products/#{product.id}", params: invalid_attributes
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(parsed_response).to include(name: ["can't be blank"])
+        expect(parsed_response).to include(price: ['must be greater than 0'])
+        expect(parsed_response).to include(sku: ["can't be blank"])
+      end
+    end
+
+    context 'when the product does not exist' do
+      let(:valid_attributes) { { product: { name: 'Any Name' } } }
+
+      it 'returns a 404 status code with a not found message' do
+        put '/products/9999', params: valid_attributes
+
+        expect(response).to have_http_status(:not_found)
+        expect(parsed_response[:message]).to eq('Product not found')
+      end
+    end
+  end
+
   describe 'DELETE /products/:id' do
     context 'when the product exists' do
       let!(:product) { create(:product) }
