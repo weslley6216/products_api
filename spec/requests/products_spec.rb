@@ -88,4 +88,27 @@ describe 'Products API', type: :request do
       end
     end
   end
+
+  describe 'DELETE /products/:id' do
+    context 'when the product exists' do
+      let!(:product) { create(:product) }
+
+      it 'deletes the product' do
+        expect {
+          delete "/products/#{product.id}"
+        }.to change(Product, :count).by(-1)
+
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context 'when the product does not exist' do
+      it 'returns a 404 status code with a not found message' do
+        delete '/products/9999'
+
+        expect(response).to have_http_status(:not_found)
+        expect(parsed_response[:message]).to eq('Product not found')
+      end
+    end
+  end
 end

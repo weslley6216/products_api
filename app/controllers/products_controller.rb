@@ -19,6 +19,15 @@ class ProductsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render json: { message: 'Product not found' }, status: :not_found
   end
+
+  def destroy
+    @product = Product.find(params[:id])
+    @product.destroy
+    head :no_content
+
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: 'Product not found' }, status: :not_found
+  end
   
   private
 
