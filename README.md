@@ -4,8 +4,8 @@ API RESTful para a aplicação de gestão de produtos.
 
 ## Funcionalidades
 
-* **CRUD de Produtos:** Gerencia o ciclo de vida completo dos produtos (Criar, Ler, Atualizar, Deletar).
-* **Listagem de Produtos:** Retorna a lista de todos os produtos.
+* **CRUD de produtos:** Gerencia o ciclo de vida completo dos produtos (Criar, Ler, Atualizar, Deletar).
+* **Listagem de produtos:** Retorna a lista de todos os produtos.
 * **Ordenação:** Produtos listados são ordenados pelo nome.
 * **`missing_letter`:** Atributo calculado que indica a primeira letra do alfabeto (a-z) que está ausente no nome do produto. Retorna `_` se todas as letras estiverem presentes.
 * **Validações:** Regras de negócio simples para garantir a integridade dos dados (nome não vazio, preço maior que zero, SKU único).
@@ -17,7 +17,7 @@ API RESTful para a aplicação de gestão de produtos.
 * RSpec 3.13
 * PostgreSQL
 
-## Documentação de Endpoints 📚
+## Documentação de endpoints
 
 | Endpoint        | Método | Descrição                                    |
 | :-------------- | :----- | :------------------------------------------- |
