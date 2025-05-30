@@ -1,95 +1,134 @@
-# Products App
+# Products API
 
-Este projeto é uma aplicação de gestão de produtos construída com Ruby on Rails (API) e ReactJS (Frontend) e orquestrada via Docker Compose.
+API RESTful para a aplicação de gestão de produtos.
 
-## Propósito
+## Funcionalidades
 
-Fornecer uma plataforma completa para o gerenciamento de produtos, com as funcionalidades de cadastro, listagem, atualização e remoção de produtos (CRUD).
+* **CRUD de produtos:** Gerencia o ciclo de vida completo dos produtos (Criar, Ler, Atualizar, Deletar).
+* **Listagem de produtos:** Retorna a lista de todos os produtos.
+* **Ordenação:** Produtos listados são ordenados pelo nome.
+* **`missing_letter`:** Atributo calculado que indica a primeira letra do alfabeto (a-z) que está ausente no nome do produto. Retorna `_` se todas as letras estiverem presentes.
+* **Validações:** Regras de negócio simples para garantir a integridade dos dados (nome não vazio, preço maior que zero, SKU único).
 
-## Arquitetura
+## Tecnologias
 
-O projeto é composto por três partes principais:
+* Ruby 3.4.2
+* Rails 8.0.2
+* RSpec 3.13
+* PostgreSQL
 
-* **[Products API](https://github.com/weslley6216/products_api):**
-  * Uma API RESTful construída com Ruby on Rails, responsável pela lógica de negócios, validações e persistência de dados.
-* **[Products Frontend](https://github.com/seu-usuario/product_frontend):**
-  * Uma aplicação web construída com ReactJS, que fornece a interface de usuário para interação com os produtos.
-* **Products App:**
-  * Este repositório, que orquestra a execução da API e do Frontend utilizando Docker Compose.
+## Documentação de endpoints
 
-O fluxo de dados é o seguinte:
+| Endpoint        | Método | Descrição                                    |
+| :-------------- | :----- | :------------------------------------------- |
+| `/products`     | `GET`  | Retorna a lista ordenada de todos os produtos. |
+| `/products`     | `POST` | Cria um novo produto.                        |
+| `/products/:id` | `GET`  | Retorna os detalhes de um produto específico. |
+| `/products/:id` | `PUT`  | Atualiza os dados de um produto existente.   |
+| `/products/:id` | `DELETE`| Remove um produto.                           |
 
-1. O frontend se comunica com a API para todas as operações de CRUD (Criar, Ler, Atualizar, Excluir) de produtos.
-2. O backend processa as requisições, interage com o banco de dados e retorna os dados dos produtos, incluindo também o atributo `missing_letter` calculado.
+## Interagindo com os endpoints da API
 
-## Configuração e Execução
+### Listar Produtos
 
-1. **Certifique-se de ter o Docker instalado localmente.**
-2. **Clone este repositório:**
+**GET** `http://localhost:3000/products`
 
-    ```bash
-    git clone git@github.com:weslley6216/products_app.git
-    ```
+**Response:**
 
-3. **Navegue até o diretório do projeto:**
-
-    ```bash
-    cd products_app
-    ```
-
-4. **Copie o arquivo `.env.example` para `.env`** para configurar as variáveis de ambiente necessárias (ex: credenciais do banco de dados, portas, etc.):
-
-    ```bash
-    cp .env.example .env
-    ```
-
-6. **Execute o projeto com Docker Compose:**
-
-    ```bash
-    docker compose up
-    ```
-
-## Acessando a Aplicação
-
-Após os serviços subirem, abra o navegador e acesse:
-
-```bash
-http://localhost:4000
+```json
+[
+  {
+    "id": 3,
+    "name": "Fone de Ouvido Soundcode Q45",
+    "price": "299.5",
+    "sku": "FONEBT01",
+    "missing_letter": "a"
+  },
+  {
+    "id": 1,
+    "name": "Notebook UltraPower X1",
+    "price": "3999.99",
+    "sku": "NTB001",
+    "missing_letter": "c"
+  },
+  {
+    "id": 2,
+    "name": "Teclado Gamer RGB Pro",
+    "price": "450.0",
+    "sku": "TCLG001",
+    "missing_letter": "f"
+  }
+]
 ```
 
-## Comandos Adicionais
+### Criar um novo produto
 
-Após rodar um `docker compose up`, abra uma nova instância no terminal e execute um dos passos abaixo:
+**POST** `http://localhost:3000/cart`
 
-* **Executar testes RSpec (Product API):**
+**Request:**
 
-    ```bash
-    docker compose exec backend rspec
-    ```
+```json
+{
+  "name": "Monitor Dell ",
+  "price": 2499,
+  "sku": "MONITOR001"
+}
+```
 
-* **Executar testes Vitest (Frontend):**
+**Response:**
 
-    ```bash
-    docker compose exec frontend yarn test
-    ```
+```json
+{
+  "id": 4,
+  "name": "Monitor Dell ",
+  "price": "2499.0",
+  "sku": "MONITOR001",
+  "missing_letter": "a"
+}
+```
 
-* **Abrir um shell Bash na API:**
+### Exibir um produto específico
 
-    ```bash
-    docker compose exec backend bash
-    ```
+**GET** `http://localhost:3000/products/1`
 
-* **Abrir um shell Sh no Frontend:**
+**Response:**
 
-    ```bash
-    docker compose exec frontend sh
-    ```
+```json
+{
+  "id": 1,
+  "name": "Notebook UltraPower X1",
+  "price": "3999.99",
+  "sku": "NTB001",
+  "missing_letter": "c"
+}
+```
 
----
+### Atualizar um produto existente
 
-## Informações Adicionais
+**PUT** `http://localhost:3000/cart`
 
-Para obter informações detalhadas sobre dependências de desenvolvimento, endpoints da API, tecnologias do frontend e testes, consulte os READMEs específicos de cada projeto:
+**Request:**
 
-* **[Products API](https://github.com/weslley6216/products_api)**
-* **[Products Frontend](https://github.com/weslley6216/products_frontend)**
+```json
+{
+  "name": "Notebook UltraPower C1",
+  "price": 2399,
+  "sku": "NTB002"
+}
+```
+
+**Response:**
+
+```json
+{
+  "id": 1,
+  "name": "Notebook UltraPower C1",
+  "price": "2399.0",
+  "sku": "NTB002",
+  "missing_letter": "d"
+}
+```
+
+### Remover um produto específico
+
+**DELETE** `http://localhost:3000/products/1`
