@@ -3,10 +3,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem "bootsnap", require: false
-gem 'pg', '~> 1.5', '>= 1.5.9'
-gem "puma", '>= 5.0'
 gem 'rails', '~> 8.0.1'
+
+gem 'bootsnap', require: false
+gem 'pg', '~> 1.5', '>= 1.5.9'
+gem 'puma', '>= 5.0'
+gem 'rack-cors', require: 'rack/cors'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
