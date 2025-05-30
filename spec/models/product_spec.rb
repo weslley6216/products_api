@@ -6,7 +6,7 @@ RSpec.describe Product, type: :model do
   it { should validate_uniqueness_of(:sku).case_insensitive }
 
   describe '#missing_letter' do
-    subject(:product) { build(:product, name: test_name, price: 10.0, sku: 'TESTSKU') } 
+    subject(:product) { build(:product, name: test_name, price: 10.0, sku: 'TESTSKU') }
 
     context 'when the name contains all letters from a-z' do
       let(:test_name) { 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' }

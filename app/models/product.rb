@@ -6,11 +6,11 @@ class Product < ApplicationRecord
   scope :ordered_by_name, -> { order(:name) }
 
   def missing_letter
-    cleaned_name = name.parameterize.gsub(/[^a-z]/, "")
+    cleaned_name = name.parameterize.gsub(/[^a-z]/, '')
     present_letters_mapping = {}
 
-    cleaned_name.each_char do |char| 
-      present_letters_mapping[char] = true 
+    cleaned_name.each_char do |char|
+      present_letters_mapping[char] = true
     end
 
     ('a'..'z').each do |letter|
