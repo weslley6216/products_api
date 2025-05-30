@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails', '~> 8.0.1'
 
+gem 'active_model_serializers', '~> 0.10.15'
 gem 'bootsnap', require: false
 gem 'pg', '~> 1.5', '>= 1.5.9'
 gem 'puma', '>= 5.0'

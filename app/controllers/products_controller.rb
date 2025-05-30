@@ -3,25 +3,25 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.ordered_by_name
-    render json: @products, status: :ok
+    render json: @products, each_serializer: ProductSerializer, status: :ok
   end
 
   def create
     @product = Product.new(product_params)
 
-    return render json: @product, status: :created if @product.save
+    return render json: @product.errors, status: :unprocessable_entity unless @product.save
 
-    render json: @product.errors, status: :unprocessable_entity
+    render json: @product, serializer: ProductSerializer, status: :created
   end
 
   def show
-    render json: @product, status: :ok
+    render json: @product, serializer: ProductSerializer, status: :ok
   end
 
   def update
-    return render json: @product if @product.update(product_params)
+    return render json: @product.errors, status: :unprocessable_entity unless @product.update(product_params)
 
-    render json: @product.errors, status: :unprocessable_entity
+    render json: @product, serializer: ProductSerializer
   end
 
   def destroy
