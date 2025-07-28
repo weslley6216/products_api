@@ -7,7 +7,7 @@ gem 'rails', '~> 8.0.1'
 
 gem 'active_model_serializers', '~> 0.10.15'
 gem 'bootsnap', require: false
-gem 'pg', '~> 1.5', '>= 1.5.9'
+gem 'pg', '~> 1.6'
 gem 'puma', '>= 5.0'
 gem 'rack-cors', require: 'rack/cors'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
