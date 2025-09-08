@@ -15,7 +15,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 group :development, :test do
   gem 'database_cleaner', '~> 2.1'
   gem 'debug', platforms: %i[mri windows]
-  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.4'
+  gem 'factory_bot_rails', '~> 6.5'
   gem 'pry-byebug', '~> 3.11'
   gem 'rspec-rails', '~> 8.0'
   gem 'rubocop-rails-omakase', require: false
