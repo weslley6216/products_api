@@ -19,7 +19,7 @@ group :development, :test do
   gem 'pry-byebug', '~> 3.11'
   gem 'rspec-rails', '~> 8.0'
   gem 'rubocop-rails-omakase', require: false
-  gem 'shoulda-matchers', '~> 6.5'
+  gem 'shoulda-matchers', '~> 7.0'
 end
 
 group :development do
