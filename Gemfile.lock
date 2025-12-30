@@ -164,7 +164,11 @@ GEM
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
-    pg (1.5.9)
+    pg (1.6.3)
+    pg (1.6.3-aarch64-linux)
+    pg (1.6.3-aarch64-linux-musl)
+    pg (1.6.3-x86_64-linux)
+    pg (1.6.3-x86_64-linux-musl)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -316,7 +320,7 @@ DEPENDENCIES
   database_cleaner (~> 2.1)
   debug
   factory_bot_rails (~> 6.4, >= 6.4.4)
-  pg (~> 1.5, >= 1.5.9)
+  pg (~> 1.6)
   pry-byebug (~> 3.11)
   puma (>= 5.0)
   rack-cors
